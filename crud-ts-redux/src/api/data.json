@@ -1,0 +1,39 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "avatar": "https://unavatar.io/github/Viola",
+      "name": "Viola Amherd",
+      "email": "viola@gmail.com",
+      "github": "Viola"
+    },
+    {
+      "id": "2",
+      "avatar": "https://unavatar.io/github/Simonetta",
+      "name": "Simonetta Sommaruga",
+      "email": "Simonetta@gmail.com",
+      "github": "Simonetta"
+    },
+    {
+      "id": "3",
+      "avatar": "https://unavatar.io/github/mouredev",
+      "name": "Mouredev",
+      "email": "Mouredev@gmail.com",
+      "github": "Mouredev"
+    },
+    {
+      "id": "4",
+      "avatar": "https://unavatar.io/github/midudev",
+      "name": "Midudev",
+      "email": "Midudev@gmail.com",
+      "github": "midudev"
+    },
+    {
+      "id": "5",
+      "avatar": "https://unavatar.io/github/enriqueSFranco",
+      "name": "kike",
+      "email": "kike@gmail.com",
+      "github": "enriqueSFranco"
+    }
+  ]
+}
