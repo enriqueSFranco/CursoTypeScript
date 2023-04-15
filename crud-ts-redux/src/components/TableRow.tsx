@@ -6,9 +6,10 @@ interface Props {
   name: string
   email: string
   github: string
+  onDelete: () => void
 }
 
-const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github }) => {
+const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github, onDelete }) => {
   return (
     <TableRow>
       <TableCell>
@@ -19,7 +20,7 @@ const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github }) => {
       <TableCell>{github}</TableCell>
       <TableCell className='flex gap-4'>
         <button>✍🏼</button>
-        <button>🗑️</button>
+        <button onClick={onDelete}>🗑️</button>
       </TableCell>
     </TableRow>
   )

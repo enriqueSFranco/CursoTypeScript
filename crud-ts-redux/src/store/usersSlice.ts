@@ -1,23 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import type { UserId, UserWithId } from '../types'
 import api from '../api/data.json'
-
-export interface User {
-  avatar: string
-  name: string
-  email: string
-  github: string
-}
-
-export interface UserWithId extends User {
-  id: string
-}
 
 const initialState: UserWithId[] = api.data
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {}
+  reducers: {
+    deleteUser: (state, action: PayloadAction<UserId>) => {
+      const id = action.payload
+      return state.filter(user => user.id !== id)
+    }
+  }
 })
+
+export const { deleteUser } = usersSlice.actions
 
 export default usersSlice.reducer

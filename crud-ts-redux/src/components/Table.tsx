@@ -2,9 +2,11 @@ import { useAppSelector } from '../hooks/store'
 import { Table, TableBody } from '@tremor/react'
 import CustomTableRow from './TableRow'
 import CustomTableHead from './TableHead'
+import { useUserActions } from '../hooks/useUserActions'
 
 const CustomTable: React.FC = () => {
   const data = useAppSelector(state => state.users)
+  const { handleDeleteUser } = useUserActions()
 
   return (
     <Table className="mt-5">
@@ -17,6 +19,7 @@ const CustomTable: React.FC = () => {
             name={name}
             email={email}
             github={github}
+            onDelete={() => handleDeleteUser(id)}
           />
         ))}
       </TableBody>

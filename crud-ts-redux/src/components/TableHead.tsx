@@ -11,7 +11,7 @@ const CustomTableHead: React.FC = () => {
         <TableHeaderCell>Avatar</TableHeaderCell>
         <TableHeaderCell>Name</TableHeaderCell>
         <TableHeaderCell>Email</TableHeaderCell>
-        <TableHeaderCell>Githib</TableHeaderCell>
+        <TableHeaderCell>Github</TableHeaderCell>
         <TableHeaderCell>Actions</TableHeaderCell>
       </TableRow>
     </TableHead>
