@@ -1,5 +1,7 @@
 import { configureStore, type Middleware } from '@reduxjs/toolkit'
 import usersReducer from './usersSlice'
+import { toast } from 'sonner'
+import { User } from '../types'
 
 const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (action) => {
   console.log(store.getState()) // estado inicial
@@ -10,14 +12,27 @@ const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (acti
 }
 
 const syncWithDataMiddleware: Middleware = (store) => (next) => (action) => {
+  const { type, payload } = action
+  next(action)
 
+  if (type === 'users/deleteUser') {
+    fetch(`https://jsonplaceholder.typicode.com/users/${payload}`, { method: 'DELETE' })
+      .then(res => {
+        if (res.ok) {
+          toast.success(`Usuario ${payload} eliminado correctamente`)
+        } else {
+          throw new Error('Opps, ha ocurrido un erro')
+        }
+      })
+      .catch(err => { console.error(err) })
+  }
 }
 
 export const store = configureStore({
   reducer: {
     users: usersReducer
   },
-  middleware: [persistanceLocalStorageMiddleware]
+  middleware: [persistanceLocalStorageMiddleware, syncWithDataMiddleware]
 })
 
 export type RootState = ReturnType<typeof store.getState>
