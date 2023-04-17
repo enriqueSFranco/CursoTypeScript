@@ -6,7 +6,7 @@ import { useUserActions } from '../hooks/useUserActions'
 
 const CustomTable: React.FC = () => {
   const data = useAppSelector(state => state.users)
-  const { handleDeleteUser } = useUserActions()
+  const { handleDeleteUser, handleEditUser } = useUserActions()
 
   return (
     <Table className="mt-5">
@@ -19,6 +19,7 @@ const CustomTable: React.FC = () => {
             name={name}
             email={email}
             github={github}
+            onEdit={() => handleEditUser({ id, name, email, github })}
             onDelete={() => handleDeleteUser(id)}
           />
         ))}

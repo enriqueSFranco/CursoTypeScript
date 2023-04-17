@@ -1,5 +1,6 @@
 import { TableRow, TableCell } from '@tremor/react'
 import Avatar from './Avatar'
+import { useFormActionType } from '../hooks/useFormActionType'
 
 interface Props {
   avatar: string
@@ -7,9 +8,16 @@ interface Props {
   email: string
   github: string
   onDelete: () => void
+  onEdit: () => void
 }
 
-const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github, onDelete }) => {
+const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github, onDelete, onEdit }) => {
+  const { handleFormActionType } = useFormActionType()
+  function handleEdit() {
+    handleFormActionType('edit')
+    onEdit()
+  }
+
   return (
     <TableRow>
       <TableCell>
@@ -19,7 +27,7 @@ const CustomTableRow: React.FC<Props> = ({ avatar, name, email, github, onDelete
       <TableCell>{email}</TableCell>
       <TableCell>{github}</TableCell>
       <TableCell className='flex gap-4'>
-        <button>✍🏼</button>
+        <button onClick={handleEdit}>✍🏼</button>
         <button onClick={onDelete}>🗑️</button>
       </TableCell>
     </TableRow>

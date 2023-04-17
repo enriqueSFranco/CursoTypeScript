@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
 import { useAppDispatch } from '../hooks/store'
-import { createUser, deleteUser } from '../store/usersSlice'
-import { type User, type UserId } from '../types'
+import { createUser, deleteUser, editUser } from '../features/users/usersSlice'
+import type { User, UserId, UserWithId } from '../types'
 
 export const useUserActions = (): {
   handleDeleteUser: (id: UserId) => void
   handleCreateUser: (payload: User) => void
+  handleEditUser: (payload: UserWithId) => void
 } => {
   const dispatch = useAppDispatch()
 
@@ -13,9 +14,13 @@ export const useUserActions = (): {
     dispatch(deleteUser(id))
   }, [dispatch])
 
+  const handleEditUser = (payload: UserWithId): void => {
+    dispatch(editUser(payload))
+  }
+
   const handleCreateUser = useCallback((payload: User): void => {
     dispatch(createUser(payload))
   }, [dispatch])
 
-  return { handleCreateUser, handleDeleteUser }
+  return { handleCreateUser, handleDeleteUser, handleEditUser }
 }
