@@ -1,3 +1,9 @@
+declare global {
+  interface Array<T> {
+    toSorted(compareFn?: (a: T, b: T) => number): T[]
+  }
+}
+
 export interface User {
   gender: Gender
   name: Name
@@ -84,3 +90,5 @@ export interface Picture {
   medium: string
   thumbnail: string
 }
+
+export type UserMin = Pick<User, 'name' | 'location' | 'picture'>
