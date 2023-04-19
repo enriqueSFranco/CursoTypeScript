@@ -3,10 +3,11 @@ import { useUsers } from './hooks/useUsers'
 import { User, SortBy } from './types.d'
 import Header from './components/Header'
 import Table from './components/Table'
+import Loader from './components/Loader'
 import './App.css'
 
 function App() {
-  const { users, initialUsers, setUsers } = useUsers()
+  const { users, loading, initialUsers, setUsers, setPage } = useUsers()
   const [togglePaint, setTogglePaint] = useState<Boolean>(false)
   const [sorting, setSorting] = useState<SortBy>(SortBy.None)
   const [filterCity, setFilterCity] = useState<string | null>(null)
@@ -63,8 +64,7 @@ function App() {
   }, [filterUsers, sorting])
 
   function handleRemoveUser(email: string) {
-    const copyData = [...users]
-    const newUsers = copyData.filter(user => user.email.localeCompare(email))
+    const newUsers = [...users].filter(user => user.email.localeCompare(email))
     setUsers(newUsers)
   }
 
@@ -77,12 +77,24 @@ function App() {
         setFilterCity={setFilterCity}
       />
       <main>
-        <Table
-          users={sortedUsers}
-          paintRows={togglePaint}
-          onRemove={handleRemoveUser}
-          onSortingByName={handleChangeSorting}
-        />
+        <section className='flex flex-col items-center justify-center gap-4'>
+          {users.length > 0 && (
+            <Table
+              users={sortedUsers}
+              paintRows={togglePaint}
+              onRemove={handleRemoveUser}
+              onSortingByName={handleChangeSorting}
+            />
+
+          )}
+          {!loading && <button
+            className='bg-blue-600 p-2 rounded-md hover:bg-blue-700 transition-colors duration-75 ease-in'
+            onClick={() => setPage(prevPage => prevPage + 1)}
+          >
+            Cargar mas resultados
+          </button>}
+          {loading && <Loader />}
+        </section>
       </main>
     </div>
   )

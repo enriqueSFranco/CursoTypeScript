@@ -1,14 +1,19 @@
 import { API } from '../constants.d'
+import type { ErrorResponse } from '../types'
 
-export async function getUsersService () {
+export async function getUsersService (page: number) {
   try {
-    const response = await fetch(API.USERS)
+    const url = new URL(API.USERS)
+    url.searchParams.set('page', String(page))
+    const response = await fetch(url)
 
     if (!response.ok) {
-      const error = {
+      const statusCode: string = response.status === 0 || response.status === null ? '00' : String(response.status)
+      const statusText: string = response.statusText === '' ? 'Opsss, ha ocurrido un error' : response.statusText
+      const error: ErrorResponse = {
         err: new Error('Opsss, ha ocurrido un error durante la peticion'),
-        status: response.status || '00',
-        statusText: response.statusText || 'Opsss, ha ocurrido un error'
+        status: statusCode,
+        statusText
       }
       throw error
     }
@@ -16,5 +21,6 @@ export async function getUsersService () {
     return json
   } catch (error) {
     console.error(error)
+    throw error
   }
 }

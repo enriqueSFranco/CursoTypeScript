@@ -85,6 +85,12 @@ export enum Title {
   Mrs = 'Mrs',
 }
 
+export interface ErrorResponse {
+  err: Error
+  status: string
+  statusText: string
+}
+
 export interface Picture {
   large: string
   medium: string
