@@ -91,4 +91,11 @@ export interface Picture {
   thumbnail: string
 }
 
+export enum SortBy {
+  None = 'none',
+  Name = 'name',
+  Last = 'last',
+  City = 'city'
+}
+
 export type UserMin = Pick<User, 'name' | 'location' | 'picture'>
