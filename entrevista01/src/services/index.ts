@@ -1,8 +1,10 @@
 import { API } from '../constants.d'
 
-export async function getUsersService () {
+export async function getUsersService ({ currentPage }) {
   try {
-    const response = await fetch(API.USERS)
+    const url = new URL(API.USERS)
+    url.searchParams.set('page', currentPage)
+    const response = await fetch(url)
 
     if (!response.ok) {
       const error = {
@@ -13,8 +15,13 @@ export async function getUsersService () {
       throw error
     }
     const json = await response.json()
-    return json
-  } catch (error) {
+    const { results, info } = json
+    const nextCursor: number = info.page
+    return {
+      results,
+      nextCursor
+    }
+  } catch (error) { // AQUI NO SE CAPTURAN LOS ERRORES
     console.error(error)
   }
 }

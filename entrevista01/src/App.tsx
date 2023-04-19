@@ -6,7 +6,7 @@ import Table from './components/Table'
 import './App.css'
 
 function App() {
-  const { users, initialUsers, setUsers } = useUsers()
+  const { users, loading, initialUsers, setUsers, setCurrentPage } = useUsers()
   const [togglePaint, setTogglePaint] = useState<Boolean>(false)
   const [sorting, setSorting] = useState<SortBy>(SortBy.None)
   const [filterCity, setFilterCity] = useState<string | null>(null)
@@ -77,12 +77,18 @@ function App() {
         setFilterCity={setFilterCity}
       />
       <main>
-        <Table
-          users={sortedUsers}
-          paintRows={togglePaint}
-          onRemove={handleRemoveUser}
-          onSortingByName={handleChangeSorting}
-        />
+        {loading && <strong>cargando...</strong>}
+        {!loading && (
+          <section className='flex justify-center items-center flex-col gap-8'>
+            <Table
+              users={sortedUsers}
+              paintRows={togglePaint}
+              onRemove={handleRemoveUser}
+              onSortingByName={handleChangeSorting}
+            />
+            <button onClick={() => setCurrentPage(prevPage => prevPage + 1)} className='bg-cyan-600 p-2 rounded-md'>Cargar mas resultdos</button>
+          </section>
+        )}
       </main>
     </div>
   )
