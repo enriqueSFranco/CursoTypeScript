@@ -4,7 +4,7 @@ interface Props {
 
 const AppLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className='w-screen h-screen bg-slate-800'>
+    <div className='w-screen h-max bg-slate-800'>
       {children}
     </div>
   )

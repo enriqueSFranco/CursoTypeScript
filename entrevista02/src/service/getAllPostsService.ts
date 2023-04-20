@@ -1,13 +1,10 @@
 import { API } from '../constants.d'
-import { Post, ErrorResponse } from '../type'
+import { ErrorResponse } from '../type'
 
-export async function addPostService({ payload }: { payload: Post }) {
+export async function getAllPostsService() {
   try {
     const endpoint = new URL(`${API.POSTS}`)
-    const response = await fetch(endpoint, {
-      method: 'POST', headers: {
-        'Content-Type': 'application/json',
-    }, body: JSON.stringify(payload)})
+    const response = await fetch(endpoint)
     
     if (!response.ok) {
       const statusCode: string = response.status === 0 || response.status === null ? '00' : String(response.status)
@@ -20,7 +17,6 @@ export async function addPostService({ payload }: { payload: Post }) {
       throw error
     }
     const data = await response.json()
-    console.log(data)
     return data
   } catch (error) {
     return error

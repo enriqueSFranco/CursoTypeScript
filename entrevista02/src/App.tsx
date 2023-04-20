@@ -1,17 +1,16 @@
-import { useState } from 'react'
+import { useAddPosts, useGetAllPosts } from './hooks'
 import type { Post } from './type'
-import { addPostService } from './service/addPostService'
-import fakeApi from './api/db.json'
 import AppLayout from './layout/AppLayout'
 import MainLayout from './layout/MainLayout'
 import FormPost from './components/FormPost'
 import PostList from './components/PostList'
 import './App.css'
 
-const initialDB = fakeApi.posts
-
 function App() {
-  const [posts, setPosts] = useState<Post[]>(initialDB ?? [])
+  const { results, isLoading } = useGetAllPosts()
+  const { mutate } = useAddPosts()
+
+  const posts = results ?? []
 
   function addPost({ title, body }: { title: string, body: string }): void {
     const newPost: Post = {
@@ -19,20 +18,16 @@ function App() {
       title,
       body
     }
-    addPostService({ payload: newPost })
-      .then(response => console.log(response))
-      .catch(error => console.error(error))
-    setPosts([...posts, newPost])
+    mutate({ payload: newPost })
   }
-
-  console.log(posts)
 
   return (
     <AppLayout>
       <MainLayout>
         <main className='w-full flex flex-col gap-4'>
           <h1 className='text-xl text-white'>Lista de Publicaciones</h1>
-          <PostList posts={posts} />
+          {isLoading && <strong className='text-white'>cargando</strong>}
+          {!isLoading && <PostList posts={posts} />}
         </main>
         <aside className='p-4 w-full h-screen'>
           <FormPost addPost={addPost} />
