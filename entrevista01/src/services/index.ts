@@ -1,10 +1,17 @@
 import { API } from '../constants.d'
-import type { ErrorResponse } from '../types'
+import type { ErrorResponse, User } from '../types'
 
-export async function getUsersService (page: number) {
+type NextCursor = number | undefined
+
+interface UserResponse {
+  users: User[]
+  nextCursor: NextCursor
+}
+
+export async function getUsersService ({ pageParam = 1 }: { pageParam?: number }): Promise<UserResponse> {
   try {
     const url = new URL(API.USERS)
-    url.searchParams.set('page', String(page))
+    url.searchParams.set('page', String(pageParam))
     const response = await fetch(url)
 
     if (!response.ok) {
@@ -17,8 +24,13 @@ export async function getUsersService (page: number) {
       }
       throw error
     }
-    const json = await response.json()
-    return json
+    const { results, info } = await response.json()
+    const currentPage: number = Number(info.page)
+    const nextCursor: NextCursor = currentPage >= 10 ? undefined : currentPage + 1
+    return {
+      users: results,
+      nextCursor
+    }
   } catch (error) {
     console.error(error)
     throw error

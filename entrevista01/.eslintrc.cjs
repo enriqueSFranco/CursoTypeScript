@@ -19,6 +19,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/method-signature-style': 'off',
-    '@typescript-eslint/no-throw-literal': 'off'
+    '@typescript-eslint/no-throw-literal': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off'
   }
 }
