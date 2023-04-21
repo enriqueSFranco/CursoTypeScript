@@ -10,7 +10,7 @@
 // opcion 1
 function leet(text: string): string {
   let textUpperCase: string = text.toLocaleUpperCase()
-  const language = {
+  const language: Record<string, string> = {
     A:'4', B:'|3', C:'[', D:'|)',
     E:'3', F: '|=', G:'6', H:'#', I:'1',
     J:'_|', K:'|<', L:'|_', M:'[V]',
@@ -27,7 +27,7 @@ function leet(text: string): string {
 function leet2(text: string): string {
   let textUpperCase: string = text.toLocaleUpperCase()
   let ans: string = ''
-  const language = {
+  const language: Record<string, string> = {
     A:'4', B:'|3', C:'[', D:'|)',
     E:'3', F: '|=', G:'6', H:'#', I:'1',
     J:'_|', K:'|<', L:'|_', M:'[V]',
