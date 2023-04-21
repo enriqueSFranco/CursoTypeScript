@@ -7,6 +7,7 @@ import Loader from './components/Loader'
 import './App.css'
 
 function App() {
+  const { users, loading, initialUsers, setUsers, setCurrentPage } = useUsers()
   const { users, loading, initialUsers, setUsers, setPage } = useUsers()
   const [togglePaint, setTogglePaint] = useState<Boolean>(false)
   const [sorting, setSorting] = useState<SortBy>(SortBy.None)
@@ -77,6 +78,9 @@ function App() {
         setFilterCity={setFilterCity}
       />
       <main>
+        {loading && <strong>cargando...</strong>}
+        {!loading && (
+          <section className='flex justify-center items-center flex-col gap-8'>
         <section className='flex flex-col items-center justify-center gap-4'>
           {users.length > 0 && (
             <Table
@@ -85,6 +89,9 @@ function App() {
               onRemove={handleRemoveUser}
               onSortingByName={handleChangeSorting}
             />
+            <button onClick={() => setCurrentPage(prevPage => prevPage + 1)} className='bg-cyan-600 p-2 rounded-md'>Cargar mas resultdos</button>
+          </section>
+        )}
 
           )}
           {!loading && <button
