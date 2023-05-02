@@ -17,13 +17,13 @@ const Rating: React.FC<Props> = ({ onChange }) => {
   }
   return (
     <LayoutFilters>
-      <h3 className='text-xl font-bold'>Raiting</h3>
+      <h3 className='text-xl font-bold'>Rating</h3>
       <ul className='flex flex-col gap-3'>
         {[1, 2, 3, 4, 5].map((star) => (
           <li key={`star-id_${String(star)}`}>
-            <label>
+            <label className='flex gap-2'>
               <input type="checkbox" value={String(star)} onChange={(e) => handleChange(star, e.target.checked)} />
-              <span>⭐️</span>
+              {'⭐️'.repeat(star)}
             </label>
           </li>
         ))}
