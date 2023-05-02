@@ -1,3 +1,4 @@
+import { numberFormat } from '@/utils/numberFormat.ts'
 import styles from '@/styles/Product.module.css'
 
 interface Props {
@@ -13,10 +14,10 @@ const Product: React.FC<Props> = ({ name, image, rating, price }) => {
       <div className={styles.wrapperImage}>
         <img src={image} alt={`product-${name}`} />
       </div>
-      <div>
-        <strong>{name}</strong>
+      <div className={styles.productInfo}>
+        <strong className={styles.productName}>{name}</strong>
         <span>{rating}</span>
-        <span>{price}</span>
+        <span>{numberFormat(price)}</span>
       </div>
     </article>
   )

@@ -14,6 +14,8 @@ export interface ApiConfig {
   PRODUCTS: string | URL
 }
 
+export type Filters = null | ((product: Product) => boolean)
+
 export enum Currency {
   Usd = "USD",
 }

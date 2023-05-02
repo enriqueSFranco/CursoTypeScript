@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,11 +33,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 ul,
 ol {
   list-style: none;
@@ -41,11 +40,11 @@ ol {
   margin: 0;
 }
 
-main {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  grid-template-areas: "filters products";
+img {
+  max-width: 100%;
+  height: auto;
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
