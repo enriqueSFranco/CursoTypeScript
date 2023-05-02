@@ -1,0 +1,15 @@
+.wrapperImage {
+  outline: 4px solid blue;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.wrapperProduct {
+  outline: 2px solid red;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 4px;
+}
