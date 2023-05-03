@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   color: #959595;
 }
 
@@ -28,7 +29,6 @@
   background-color: #f3f3f3;
   box-shadow: #00000029 0px 1px 4px;
   width: 360px;
-  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

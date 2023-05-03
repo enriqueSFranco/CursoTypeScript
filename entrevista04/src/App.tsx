@@ -25,8 +25,13 @@ function App() {
     return newProducts
   }, [filters, products])
 
-  const handleFilters = (filter: Filters) => {
+  const handleFilterColor = (filter: Filters) => {
     const newFilters = { ...filters, color: filter }
+    setFilters(newFilters)
+  }
+
+  const handleFilterRating = (filter: Filters) => {
+    const newFilters = { ...filters, rating: filter }
     setFilters(newFilters)
   }
 
@@ -35,8 +40,8 @@ function App() {
       <h1 className="text-3xl font-bold underline text-center">Entrevista 04</h1>
       <main>
         <aside className={styles.filters}>
-          <Color products={products} onChange={(filter) => handleFilters(filter)} />
-          <Rating onChange={(filter) => handleFilters(filter)} />
+          <Color products={products} onChange={(filter) => handleFilterColor(filter)} />
+          <Rating onChange={(filter) => handleFilterRating(filter)} />
         </aside>
         <LayoutProducts>
           <h2 className='tex-xl font-bold'>{matches.length} Resultados</h2>

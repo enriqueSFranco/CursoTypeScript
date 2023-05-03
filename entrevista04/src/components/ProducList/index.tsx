@@ -9,11 +9,12 @@ interface Props {
 const ProductList: React.FC<Props> = ({ products }) => {
   return (
     <ul className={styles.wrapperProductList}>
-      {products.map(({ id, name, image, price, rating }) => (
+      {products.map(({ id, name, color, image, price, rating }) => (
         <li key={`product-id_${id}`} className={styles.productListItem}>
           <Product
             name={name}
             image={image}
+            color={color}
             price={price}
             rating={rating}
           />
