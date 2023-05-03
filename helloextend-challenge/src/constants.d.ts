@@ -1,0 +1,4 @@
+export const API = {
+  SEARCH_BREEDS: import.meta.env.VITE_ENDPOINT_SEARCH_BREEDS,
+  RANDOM_IMAGE_BREED: import.meta.env.VITE_ENDPOINT_BY_BREED
+}

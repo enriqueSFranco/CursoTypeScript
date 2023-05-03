@@ -10,6 +10,9 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module', project: './tsconfig.json' },
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': 'warn'
+    'react-refresh/only-export-components': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off',
+    '@typescript-eslint/no-throw-literal': 'off'
   }
 }
