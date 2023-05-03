@@ -1,14 +1,18 @@
-export const IconHeart: React.FC = () => {
+interface Props {
+  color: string
+}
+
+export const IconHeart: React.FC<Props> = ({ color = '#fff' }: { color: string }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       width='22'
       height='22'
-      fill='#fff'
+      fill={color}
       viewBox='0 0 24 24'
     >
       <path
-        stroke='#fff'
+        stroke={color}
         strokeLinecap='round'
         strokeLinejoin='round'
         strokeWidth='1.5'
