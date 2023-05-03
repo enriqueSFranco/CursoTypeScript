@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useFav } from './hooks/useFav'
 import { useBreeds } from './hooks/useBreeds'
 import { uuid } from './utils/uuid'
 import LayoutCards from './layout/LayoutCards'
@@ -9,18 +10,15 @@ import './App.css'
 
 const App: React.FC = () => {
   const [query, setQuery] = useState('akita')
-  const [fav, setFav] = useState<string[]>([])
+  const { favs, toggleFav } = useFav()
   const { breeds, loading } = useBreeds(query)
 
-  function handleSearch(q: string): void {
+  const handleSearch = (q: string): void => {
     const currentQuery = q
     setQuery(currentQuery)
   }
 
-  function handleFav(id: string): void {
-    console.log('agregando a favorito', id)
-    setFav([...fav, id])
-  }
+  console.log(favs)
 
   return (
     <>
@@ -30,14 +28,13 @@ const App: React.FC = () => {
       <section className='w-full h-12'>
         <Form onChange={handleSearch} />
       </section>
-
       <main className='container mx-auto grid grid-cols-1 gap-4 px-4 divide-slate-300 divide-y'>
         <section>
           <LayoutCards>
             {loading && <Skeleton size={breeds.length} />}
             {breeds.length > 0 && breeds.map(image => (
               <li key={`image-id_${uuid()}`}>
-                <CardDog image={image} onClick={handleFav} />
+                <CardDog image={image} handleFav={toggleFav} />
               </li>
             ))}
           </LayoutCards>
@@ -46,10 +43,10 @@ const App: React.FC = () => {
         <section>
           <h2 className='uppercase text-xl font-bold text-left'>❤️ favoritos</h2>
           <LayoutCards>
-            {fav.length === 0 && (<div>no hay favoritos</div>)}
-            {fav.length > 0 && fav.map(image => (
+            {favs.size === 0 && (<div>no hay favoritos</div>)}
+            {favs.size > 0 && [...favs].map(image => (
               <li key={`image-id_${image}`}>
-                <CardDog image={image} onClick={handleFav} />
+                <CardDog image={image} />
               </li>
             ))}
           </LayoutCards>
