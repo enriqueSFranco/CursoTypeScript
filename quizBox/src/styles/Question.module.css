@@ -1,0 +1,7 @@
+.wrapperQuestion {
+  box-shadow: #0000003d 0px 3px 8px;
+  background-color: #ffe48f;
+  width: 500px;
+  border-radius: 5px;
+  padding: .5rem;
+}
