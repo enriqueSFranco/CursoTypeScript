@@ -1,24 +1,34 @@
-import { useQuestion } from '../store/question'
-import { Question } from '../types'
+import { useGame, useQuestion } from '../store'
+import { shuffleArray } from '../utils/shuffleArray'
+import { Question } from '../types.d'
+import { GameStatus } from '../types.d'
 import styles from '../styles/Question.module.css'
+import Loader from './Loader'
 
 interface Props {
   questionInfo: Question
 }
 
 const Question: React.FC<Props> = ({ questionInfo }) => {
-  const { questions, currentQuestion } = useQuestion(state => ({ questions: state.questions, currentQuestion: state.currentQuestion }))
+  const handleGameStatus = useGame(state => state.handleGameStatus)
+  const { questions, currentQuestion, handleAnswer } = useQuestion(state => ({
+    questions: state.questions,
+    currentQuestion: state.currentQuestion,
+    handleAnswer: state.handleAnswer
+  }))
+
+  const handleGame = (answer: string) => () => {
+    handleAnswer(answer)
+    if (currentQuestion === questions.length)
+      handleGameStatus(GameStatus.GameOver)
+    else handleGameStatus(GameStatus.Playing)
+  }
 
   if (questionInfo === undefined) {
-    return (
-      <div>
-        <h2>cargando</h2>
-      </div>
-    )
+    return <Loader />
   }
 
   const { question, category, difficulty, correct_answer: correctAnswer, incorrect_answers: incorrectAnswers } = questionInfo
-
   return (
     <div className={styles.wrapperQuestion}>
       <article className={styles.question}>
@@ -30,12 +40,11 @@ const Question: React.FC<Props> = ({ questionInfo }) => {
       </article>
       <div className={styles.wrapperOptions}>
         <ul className={styles.optionsList}>
-          <li><button className={styles.optionBtn}>{correctAnswer}</button></li>
-          {incorrectAnswers.map(answer => (
+          {shuffleArray([...incorrectAnswers, correctAnswer].map(answer => (
             <li key={`answer-${answer}`}>
-              <button className={styles.optionBtn}>{answer}</button>
+              <button className={styles.optionBtn} onClick={handleGame(answer)}>{answer}</button>
             </li>
-          ))}
+          )))}
         </ul>
       </div>
     </div>

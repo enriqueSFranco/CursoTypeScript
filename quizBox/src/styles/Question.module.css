@@ -28,6 +28,11 @@
   align-items: center;
 }
 
+.question>p {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
 .questionTag {
   width: 100%;
   display: grid;

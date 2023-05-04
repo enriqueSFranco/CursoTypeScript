@@ -21,4 +21,10 @@ export enum Difficulty {
 
 export enum Type {
   Multiple = "multiple",
+  Boolean = 'boolean'
+}
+
+export enum GameStatus {
+  Playing = 'playing',
+  GameOver = 'gameOver'
 }
