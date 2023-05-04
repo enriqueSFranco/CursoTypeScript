@@ -7,6 +7,12 @@ export interface Question {
   incorrect_answers: string[];
 }
 
+export interface ErrorResponse {
+  err: Error
+  statusCode: string
+  statusText: string
+}
+
 export enum Difficulty {
   Easy = "easy",
   Hard = "hard",

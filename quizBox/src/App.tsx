@@ -1,24 +1,22 @@
-import api from './mocks/apiResponse.json'
+import { useEffect } from 'react'
+import { useQuestion } from './store/question'
 import Question from './components/Question'
 import './App.css'
 
-const { results } = api
-
 function App() {
+  const { questions, currentQuestion, fetchQuestions } = useQuestion((state) => ({ questions: state.questions, currentQuestion: state.currentQuestion, fetchQuestions: state.fetchQuestions }))
+  const actualQuestion = questions[currentQuestion]
+
+  useEffect(() => { fetchQuestions() }, [])
+
   return (
     <>
       <main>
+        <div>
+
+        </div>
         <section>
-          {results.map(({ question, category, difficulty, correct_answer, incorrect_answers }) => (
-            <Question
-              key={`question-${question}`}
-              question={question}
-              correctAnswer={correct_answer}
-              incorrectAnswers={incorrect_answers}
-              category={category}
-              difficulty={difficulty}
-            />
-          ))}
+          <Question questionInfo={actualQuestion} />
         </section>
       </main>
     </>
