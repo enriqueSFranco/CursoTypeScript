@@ -1,19 +1,23 @@
-import { style } from "@vanilla-extract/css"
+import { style } from '@vanilla-extract/css'
 
 const storyContainer = style({
   width: 'auto',
-  fontSize: '14px'
+  height: '3rem',
+  fontSize: '14px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between'
 })
 
 const headerStory = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '1rem',
+  gap: '1rem'
 })
 
-
 const sotryInfo = style({
-  display: 'flex'
+  display: 'flex',
+  gap: '5px'
 })
 
 export { headerStory, storyContainer, sotryInfo }
