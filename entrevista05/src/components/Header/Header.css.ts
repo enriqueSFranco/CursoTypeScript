@@ -1,12 +1,22 @@
 import { style } from '@vanilla-extract/css'
 
-export const headerComponent = style({
+const navComponent = style({
+  height: 'inherit',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '8px'
+})
+
+const headerComponent = style({
   width: '100%',
   height: '4rem',
   display: 'flex',
   alignItems: 'center',
-  color: '#ff6600',
+  color: '#fff',
   backgroundColor: '#000',
   paddingInline: '2rem',
   textTransform: 'capitalize'
 })
+
+export { navComponent, headerComponent }
