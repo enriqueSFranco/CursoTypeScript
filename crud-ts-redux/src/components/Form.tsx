@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react'
 import { useUserActions } from '../hooks/useUserActions'
 import { Button, Card, Title, TextInput } from '@tremor/react'
+import { useFormActionType } from '../hooks/useFormActionType'
 
 const Form: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { handleCreateUser } = useUserActions()
+  const { handleCreateUser, handleEditUser } = useUserActions()
+  const { actionType, handleFormActionType } = useFormActionType()
 
   useEffect(() => {
     if (inputRef.current !== null) {
@@ -23,7 +25,14 @@ const Form: React.FC = () => {
 
     if (!name || !email || !github) return
 
-    handleCreateUser({ name, email, github })
+    handleFormActionType('create')
+    if (actionType === 'create') {
+      handleCreateUser({ name, email, github })
+    } else {
+      const id = fields.get('id') as string
+      handleEditUser({ id, name, email, github })
+      console.log({ id, name, email, github })
+    }
     $form.reset()
   }
 
@@ -44,7 +53,7 @@ const Form: React.FC = () => {
           name='github'
           placeholder='pepito'
         />
-        <Button type='submit' size='md'>Agregar</Button>
+        <Button type='submit' size='md'>{actionType === 'create' ? 'Crear' : 'Edit'}</Button>
       </form>
     </Card>
   )
