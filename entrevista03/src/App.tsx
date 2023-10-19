@@ -1,9 +1,6 @@
-import movie from './mocks/searchResponse.json'
 import Form from './components/Form'
 import MovieList from './components/MovieList'
 import './App.css'
-
-const movies = movie.Search
 
 const App: React.FC = () => {
 
