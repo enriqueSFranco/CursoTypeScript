@@ -1,18 +1,6 @@
 import { useMemo, useState } from 'react'
-
-type ItemId = `${string}-${string}-${string}-${string}-${string}`
-
-type Item = {
-  id: ItemId
-  text: string
-  timestamp: number
-}
-
-const ITEMS: Item[] = [
-  { id: crypto.randomUUID(), text: 'Videojuegos 🎮', timestamp: Date.now() },
-  { id: crypto.randomUUID(), text: 'Deportes 🏀', timestamp: Date.now() },
-  { id: crypto.randomUUID(), text: 'Libros 📚', timestamp: Date.now() }
-]
+import { Item, ItemId } from './share/types'
+import { ITEMS } from './api/items'
 
 export function App () {
   const [items, updateItems] = useState<Item[]>(ITEMS)
@@ -51,7 +39,7 @@ export function App () {
     input.value = ''
   }
 
-  function deleteItem (id: ItemId) {
+  const deleteItemHandler = (id: ItemId) => () => {
     updateItems(prevItems => {
       const updatedItems = prevItems.filter(item => item.id !== id)
       return updatedItems
@@ -75,12 +63,16 @@ export function App () {
 
       {/* TODO: LIST ITEMS */}
       <article className="content">
-        <h2>Items: {totalItems}</h2>
-        <ul className="item-list">
-          {items.map(item => (
-            <li key={`item-id-${item.id}`}><span onClick={() => deleteItem(item.id)}>{item.text}</span></li>
-          ))}
-        </ul>
+        {totalItems === 0 ? (<h2>Empty List</h2>) : (
+          <div>
+            <strong>Items: {totalItems}</strong>
+            <ul className="item-list">
+              {items.map(item => (
+                <li key={`item-id-${item.id}`}><span onClick={deleteItemHandler(item.id)}>{item.text}</span></li>
+              ))}
+            </ul>
+          </div>
+        )}
       </article>
     </main>
   )
