@@ -1,13 +1,14 @@
 import { useMemo, useState } from 'react'
-import { Item, ItemId } from './share/types'
-import { ITEMS } from './api/items'
+import { Item as ItemType, ItemId } from './share/types'
+import { Item } from './components/Item'
+// import { ITEMS } from './api/items'
 
 export function App () {
-  const [items, updateItems] = useState<Item[]>(ITEMS)
+  const [items, updateItems] = useState<ItemType[]>([])
   const totalItems = useMemo(() => items.length, [items.length])
 
   function addItem (text: string) {
-    const newItem: Item = {
+    const newItem: ItemType = {
       id: crypto.randomUUID(),
       text,
       timestamp: Date.now()
@@ -52,7 +53,7 @@ export function App () {
         <header>
           <h1>Entrevista técnica #6</h1>
         </header>
-        <form className="add-item-form" onSubmit={handleSubmit}>
+        <form className="add-item-form" onSubmit={handleSubmit} aria-label='Add new item form'>
           <label htmlFor="item" className="label-item">
             <span>Item</span>
             <input type="text" name="item" placeholder="videojuegos" autoComplete="off" />
@@ -68,7 +69,11 @@ export function App () {
             <strong>Items: {totalItems}</strong>
             <ul className="item-list">
               {items.map(item => (
-                <li key={`item-id-${item.id}`}><span onClick={deleteItemHandler(item.id)}>{item.text}</span></li>
+                <Item
+                  key={`item-id-${item.id}`}
+                  item={item}
+                  onDeleteItem={deleteItemHandler(item.id)}
+                />
               ))}
             </ul>
           </div>
