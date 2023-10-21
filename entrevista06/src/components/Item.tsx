@@ -1,15 +1,15 @@
-import { Item as ItemType, ItemId } from "../share/types"
+import { Item as ItemType } from "../share/types"
 
 type ItemProps = {
   item: ItemType
-  onDeleteItem: (id: ItemId) => () => void
+  onDeleteItem: () => void
 }
 
 export const Item = ({ item, onDeleteItem }: ItemProps) => {
   return (
     <li>
       <span>{item.text}</span>
-      <button onClick={onDeleteItem(item.id)}></button>
+      <button onClick={onDeleteItem}></button>
     </li>
   )
 }
