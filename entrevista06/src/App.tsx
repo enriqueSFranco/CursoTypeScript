@@ -1,20 +1,9 @@
-import { useMemo, useState } from 'react'
-import { Item as ItemType, ItemId } from './share/types'
+import { useItems } from './hooks/useItems'
 import { Item } from './components/Item'
 // import { ITEMS } from './api/items'
 
 export function App () {
-  const [items, updateItems] = useState<ItemType[]>([])
-  const totalItems = useMemo(() => items.length, [items.length])
-
-  function addItem (text: string) {
-    const newItem: ItemType = {
-      id: crypto.randomUUID(),
-      text,
-      timestamp: Date.now()
-    }
-    updateItems(prevItems => [...prevItems, newItem])
-  }
+  const { items, totalItems, addItem, deleteItem } = useItems()
 
   function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -38,13 +27,6 @@ export function App () {
 
     addItem(input.value)
     input.value = ''
-  }
-
-  const deleteItemHandler = (id: ItemId) => () => {
-    updateItems(prevItems => {
-      const updatedItems = prevItems.filter(item => item.id !== id)
-      return updatedItems
-    })
   }
 
   return (
@@ -72,7 +54,7 @@ export function App () {
                 <Item
                   key={`item-id-${item.id}`}
                   item={item}
-                  onDeleteItem={deleteItemHandler(item.id)}
+                  onDeleteItem={deleteItem(item.id)}
                 />
               ))}
             </ul>
