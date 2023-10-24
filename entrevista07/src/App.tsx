@@ -1,22 +1,13 @@
-import { useNavigate } from 'react-router-dom'
+import { Logo } from './components/Logo'
+import { SearchForm } from './components/ui/SearchForm'
 import './App.css'
 
 function App () {
-  const navigate = useNavigate()
-
-  function handleNavigate () {
-    navigate('/products')
-  }
-
   return (
     <main>
-      <h1>bazar online</h1>
-      <form action="">
-        <div>
-          <input type="text" placeholder="laptops, smartphones" />
-        </div>
-        <button onClick={handleNavigate}>buscar</button>
-      </form>
+      <Logo />
+      <h1 className='app-title'>bazar online</h1>
+      <SearchForm showButton />
     </main>
   )
 }
