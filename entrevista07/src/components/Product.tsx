@@ -1,26 +1,26 @@
-import styles from '../styles/product.module.css'
+import styles from '../styles/Product.module.css'
 
 type ProductProps = {
-  name: string
+  title: string
+  thumbnail: string
   description: string
-  price: string
-  rank: number
+  price: number
+  rating: number
 }
 
-export const Product = ({ name, description, price, rank }: ProductProps) => {
+export const Product = ({ title, thumbnail, description, price, rating }: ProductProps) => {
   return (
     <article className={styles.container}>
       <picture>
-        <source />
+        <source srcSet={thumbnail} />
+        <img src={thumbnail} alt={`product-${title}`} width={200} />
       </picture>
       <div className={styles.product_detail}>
-        <h2>{name}</h2>
-        <div className={styles.product_description}>
-          <p>{description}</p>
-        </div>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.product_description}>{description}</p>
         <footer className={styles.product_info}>
           <strong>{price}$</strong>
-          <p>{rank}</p>
+          <p>{rating}</p>
         </footer>
       </div>
     </article>
